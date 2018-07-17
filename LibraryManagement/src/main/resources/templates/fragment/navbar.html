@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xalmns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Library</title>
+</head>
+<body>
+	<nav class="navbar navbar-expand-sm bg-primary navbar-dark float-lelft"
+		th:fragment="navbar">
+		<div class="col-sm-3 sidenav">
+			<h3>Library Management</h3>
+			<br>
+			<ul class="nav nav-pills nav-stacked">
+				<li class="active"><a th:href="@{/}">Home</a></li>
+				<li><a th:href="@{/list}">List Book</a></li>
+				<li><a th:href="@{/return}">Return</a></li>
+				<li><a th:href="@{/brrow}">Borrow</a></li>
+			</ul>
+		</div>
+	</nav>
+</body>
+</html>

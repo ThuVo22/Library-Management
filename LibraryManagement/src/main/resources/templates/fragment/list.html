@@ -1,0 +1,32 @@
+<div xamlns:th="http://www.thymeleaf.org">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Price</th>
+				<th>Available</th>
+				<th>Edition</th>
+				<th>Page</th>
+				<th>ISBN</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="library: ${libraries}">
+				<td th:text="${library.id}">ID</th>
+				<td th:text="${library.name}">Name</th>
+				<td th:text="${library.price}">Price</th>
+				<td th:text="${library.available}">Available</th>
+				<td th:text="${library.edition}">Edition</th>
+				<td th:text="${library.page}">Page</th>
+				<td th:text="${library.isbn}">ISBN</th>
+				<th class="btn-group">
+					<a class="btn btn-primary btn-sm" th:href="'edit?id='+${library.id}">&nbsp;Edit&nbsp;</a>
+					<a class="btn btn-danger btn-sm" th:href="'delete?id='+${library.id}">Delete</a>
+				</th>
+			</tr>
+		</tbody>
+	</table>
+</div>
