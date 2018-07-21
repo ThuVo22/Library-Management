@@ -1,9 +1,22 @@
-var changePage = function(_url){
+var changeMainContent = function(data){
+	$(".main-content").html(data);
+}
+var changePageGet = function(_url){
 	$.ajax({
 		type:"GET",
 		url: _url,
 		success: function(data){
-			$(".main-content").html(data);
+			changeMainContent(data);
+		}
+	});
+}
+
+var changePagePost = function(_url){
+	$.ajax({
+		type:"POST",
+		url: _url,
+		success: function(data){
+			changeMainContent(data);
 		}
 	});
 }
@@ -30,13 +43,13 @@ var navbarChangeLink = function(){
 			$("#page-title").html($(this).html());
 			if($(this).attr("href")!="/"){
 				e.preventDefault();
-				changePage($(this).attr("href"));
+				changePageGet($(this).attr("href"));
 			}
 			
 		});
-	});
+	});	
 }
 $(document).ready(function(){
 //		searchEvent();
-		navbarChangeLink();
+		navbarChangeLink();		
 });

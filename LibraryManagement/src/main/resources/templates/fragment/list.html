@@ -1,7 +1,26 @@
-<div xamlns:th="http://www.thymeleaf.org">
-	<table class="table">
+<div xamlns:th="http://www.thymeleaf.org" class="col-md-12">
+
+	<div class="row ">
+		<div class="col-md-6 text-left">
+			<a class="btn btn-success" th:href="@{/create}">+ Create New</a>
+		</div>
+		<div class="col-md-6">
+			<form method="post" th:action="@{/search}">
+				<div class="input-group">
+		           <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Search...">
+		             <span class="input-group-btn">
+		                 <button class="btn btn-primary" type="submit">Search</button>
+		             </span>
+		         </div>
+			</form>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+	<div class="col-md-12">
+		<table class="table table-bordered">
 		<thead>
-			<tr>
+			<tr class="bg-primary">
 				<th>ID</th>
 				<th>Name</th>
 				<th>Price</th>
@@ -9,7 +28,7 @@
 				<th>Edition</th>
 				<th>Page</th>
 				<th>ISBN</th>
-				<th>Action</th>
+				<th width="140px">Action</th>
 			</tr>
 		</thead>
 		
@@ -22,11 +41,39 @@
 				<td th:text="${library.edition}">Edition</th>
 				<td th:text="${library.page}">Page</th>
 				<td th:text="${library.isbn}">ISBN</th>
-				<th class="btn-group">
-					<a class="btn btn-primary btn-sm" th:href="'edit?id='+${library.id}">&nbsp;Edit&nbsp;</a>
-					<a class="btn btn-danger btn-sm" th:href="'delete?id='+${library.id}">Delete</a>
+				<th>
+					<a class="btn btn-primary btn-sm" th:href="'edit/'+${library.id}">&nbsp; Edit &nbsp;</a>
+					<a class="btn btn-danger btn-sm" th:href="'delete/'+${library.id}">Delete</a>
 				</th>
 			</tr>
 		</tbody>
 	</table>
+ 	<div class="col-md-12">
+ 	
+ 		<div class="pull-right">
+ 			<ul class="pagination">
+ 				<th:block th:each="i: ${#numbers.sequence(0,pagingInfo.totalPage-1)}" >
+ 				
+ 					 <li th:if="${pagingInfo.currentPage} == ${i+1}" class="active">
+					 	 <a class="pagination-link" th:text="${i+1}"></a>
+					  </li> 	
+					  
+					   <li th:if="${pagingInfo.currentPage} != ${i+1}">
+					 	 <a class="pagination-link" th:href="'/list/'+${i+1}" th:text="${i+1}"></a>
+					  </li> 	
+					  				
+ 				</th:block>		 
+			</ul>
+ 		</div>
+ 	</div>
+	</div>
+	<script>
+	$(".pagination-link").each(function(index, object){
+		$(object).on("click",function(e){
+			e.preventDefault();
+			changePagePost($(this).attr("href"));
+		});
+	});
+	</script>
+</div>
 </div>

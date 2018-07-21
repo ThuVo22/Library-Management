@@ -6,34 +6,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.librarymanagement.app.dao.LibraryManagementDAO;
+import com.librarymanagement.app.biz.LibraryManagementBiz;
 import com.librarymanagement.app.entities.LibraryManagementEntities;
+import com.librarymanagement.app.model.PagingInfo;
 
 @Controller
 public class HomeController {
-    
-    
+
     @Autowired
-    private LibraryManagementDAO libraryManagementDAO;
-    
-    
+    private LibraryManagementBiz libraryManagementBiz;
+
     @GetMapping("/")
     public String index(Model model) {
-//        model.addAttribute("result", libraryManagementDAO.getAll());
         return "index";
     }
-    
-    @GetMapping("/list")
-    public String list(Model model) {
-        model.addAttribute("libraries", libraryManagementDAO.getAll());
+
+    @PostMapping("/list/{page}")
+    public String list(Model model,@PathVariable Long page) {
+
+        PagingInfo pagingInfo =  libraryManagementBiz.getPagingInfo(page);
+        model.addAttribute("pagingInfo", pagingInfo);
+        
+        List<LibraryManagementEntities> libraryEntities = libraryManagementBiz.getEnititiesByPage(page,
+                pagingInfo.getPageSize());
+        model.addAttribute("libraries", libraryEntities);
+
         return "fragment/list";
     }
-    
+
+    @GetMapping("/list")
+    public String list(Model model) {
+
+        PagingInfo pagingInfo = libraryManagementBiz.getPagingInfo(1);
+        model.addAttribute("pagingInfo", pagingInfo);
+        
+        List<LibraryManagementEntities> libraryEntities = libraryManagementBiz
+                .getEnititiesByPage(pagingInfo.getCurrentPage(), pagingInfo.getPageSize());
+        model.addAttribute("libraries", libraryEntities);
+
+        return "fragment/list";
+    }
+
     @PostMapping("/search")
-    public @ResponseBody List<LibraryManagementEntities> search(Model model, String name) {
-        return libraryManagementDAO.search(name);
+    public @ResponseBody List<LibraryManagementEntities> search(String keyword) {
+        return libraryManagementBiz.search(keyword);
     }
 }
