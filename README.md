@@ -2,10 +2,10 @@
 ## What is it? 
 **Usage**
 A library management system for the admin to keep track and update the books.
-**Technologies used: ** 
+**Technologies used:** 
 Integrated Hibernate mapping with Spring Boot and applied the pagination mechanism in Hibernate.
 
-##How to run
+## How to run
 Clone it and update Maven before running it with Spring Boot.
 
 ## Screenshots
