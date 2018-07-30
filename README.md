@@ -1,6 +1,5 @@
 # library-management
 ## What is it? 
-**Usage**
 A library management system for the admin to keep track and update the books. <br />
 **Technologies used:** 
 Integrated Hibernate mapping with Spring Boot and applied the pagination mechanism in Hibernate.
