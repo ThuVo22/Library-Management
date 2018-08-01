@@ -6,7 +6,9 @@ thead tr td{
 	color: #FFF;
 }
 
-
+.size-min-100{
+	min-width:100px;
+}
 .row.content {
 	min-height: 500px
 }
